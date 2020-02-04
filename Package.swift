@@ -31,7 +31,7 @@ let package = Package(
             name: "CDDSwift",
             dependencies: ["SwiftSyntax"]),
         .testTarget(
-            name: "cdd-rpc-swiftTests",
-            dependencies: ["cdd-rpc-swift"]),
+            name: "CDDSwiftTests",
+            dependencies: ["CDDSwift"]),
     ]
 )
