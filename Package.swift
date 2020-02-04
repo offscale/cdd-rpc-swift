@@ -4,12 +4,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "cdd-rpc-swift",
+    name: "CDDSwift",
 	// platforms: [
 	// 	.macOS(.v10_13)
 	// ],
     products: [
-        .executable(name: "cdd-swift", targets: ["cdd-rpc-swift"]),
+        .executable(name: "cdd-swift", targets: ["CDDSwift"]),
     ],
     // name: "cdd-rpc-swift",
     // products: [
@@ -28,7 +28,7 @@ let package = Package(
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
-            name: "cdd-rpc-swift",
+            name: "CDDSwift",
             dependencies: ["SwiftSyntax"]),
         .testTarget(
             name: "cdd-rpc-swiftTests",
