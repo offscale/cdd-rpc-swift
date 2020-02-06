@@ -1,4 +1,3 @@
 // import SwiftSyntax
 
-Server.start(hostname: "localhost", port: 8889)
-
+RPCServer.start(hostname: "localhost", port: 7781)

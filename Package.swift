@@ -20,14 +20,14 @@ let package = Package(
     //     .executable(name: "cdd-rpc-swift-cli", targets: ["cdd-rpc-swift"]),
     // ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.50000.0")),
+        // .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.50000.0")),
         .package(url: "https://github.com/vapor/websocket.git", from: "1.0.0"),
         // .package(url: "https://github.com/IBM-Swift/Kitura.git", from: "1.0.0"),
     ],
     targets: [
         .target(
             name: "CDDSwift",
-            dependencies: ["SwiftSyntax", "WebSocket"]),
+            dependencies: ["WebSocket"]),
         .testTarget(
             name: "CDDSwiftTests",
             dependencies: ["CDDSwift"]),
