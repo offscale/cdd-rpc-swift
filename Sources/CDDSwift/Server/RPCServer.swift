@@ -28,8 +28,13 @@ class RPCServer {
                         switch json["method"] {
 
                         case "update":
+                            print("update: \(json)")
                             let code: String = update(project: project, code: code)
-                            ws.send(rpc_response(result: "{\"code\": \"\(code)\"}", id: id))
+                            let response: JSON = rpc_response(result: ["code": code], id: id)
+
+                            print("response: \(response)")
+                            ws.send(response.description)
+
                                 
                         default: ()
                         }
@@ -62,11 +67,15 @@ class RPCServer {
 
 func update(project: JSON, code: String) -> String {
     if code == "" {
-        return "I'm swift code"
+        return printModel()
     }
     return code
 }
 
-func rpc_response(result: String, id: String) -> String {
-    return "{\"jsonrpc\": \"2.0\", \"result\": \(result), \"id\": \"\(id)\"}"
+func rpc_response(result: JSON, id: String) -> JSON {
+    [
+        "jsonrpc": "2.0",
+        "result": result,
+        "id": id
+    ]
 }
