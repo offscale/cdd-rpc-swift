@@ -21,13 +21,6 @@ class RPCServer {
                 if let dataFromString = string.data(using: .utf8, allowLossyConversion: false) {
                     do {
                         let json = try JSON(data: dataFromString)
-                        let projectJson = json["params"]["project"]
-                        print(projectJson)
-                        let project = try JSONDecoder().decode(Project.self, from: "\(projectJson)");
-
-
-                        // let params = json["params"]
-                        // let project = params["project"] as? Project
                         let code = json["code"].stringValue
                         let id = json["id"].stringValue
 
@@ -35,19 +28,33 @@ class RPCServer {
 
                         case "update":
                             print("update: \(json)")
+                            let projectJson = json["params"]["project"]
+                            let project = try JSONDecoder().decode(Project.self, from: "\(projectJson)");
+
                             let code: String = update(project: project, code: code)
                             let response: JSON = rpc_response(result: ["code": code], id: id)
-
                             print("response: \(response)")
                             ws.send(response.description)
 
+                        case "parse":
+                            print("parse: \(json)")
+                            let project: Project = parse(code: code)
+                            print("project: \(project)")
+                            let projectData:Data = try JSONEncoder().encode(project)
+                            let json = try JSON(data: projectData)
+
+                            let response: JSON = rpc_response(result: ["project": json], id: id)
+                            print("response: \(response)")
+                            ws.send(response.description)
                                 
                         default: ()
                         }
 
                         // print("in: method: \(json["method"])")
                         // print("DONE \(json)")
-                    } catch {}
+                    } catch {
+                        print("error encountered.")
+                    }
                 }
 
                 
@@ -69,13 +76,6 @@ class RPCServer {
             print("error")
         }
     }
-}
-
-func update(project: Project, code: String) -> String {
-    if code == "" {
-        return printProject(project)
-    }
-    return code
 }
 
 func rpc_response(result: JSON, id: String) -> JSON {
