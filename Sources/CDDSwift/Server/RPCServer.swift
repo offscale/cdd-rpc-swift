@@ -21,7 +21,13 @@ class RPCServer {
                 if let dataFromString = string.data(using: .utf8, allowLossyConversion: false) {
                     do {
                         let json = try JSON(data: dataFromString)
-                        let project = json["params"]["project"]
+                        let projectJson = json["params"]["project"]
+                        print(projectJson)
+                        let project = try JSONDecoder().decode(Project.self, from: "\(projectJson)");
+
+
+                        // let params = json["params"]
+                        // let project = params["project"] as? Project
                         let code = json["code"].stringValue
                         let id = json["id"].stringValue
 
@@ -65,9 +71,9 @@ class RPCServer {
     }
 }
 
-func update(project: JSON, code: String) -> String {
+func update(project: Project, code: String) -> String {
     if code == "" {
-        return printModel()
+        return printProject(project)
     }
     return code
 }
@@ -79,3 +85,13 @@ func rpc_response(result: JSON, id: String) -> JSON {
         "id": id
     ]
 }
+
+// func decodeProject(json: JSON) throws -> Project? {
+//     return try JSONDecoder().decode(Project, from: json)
+// }
+
+// struct RPCResponse<T>: Codable {
+//     var jsonrpc: String
+//     var result: T:Codable
+//     var id: String
+// }
