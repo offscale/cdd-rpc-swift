@@ -7,9 +7,9 @@ func update(project: Project, code: String) -> String {
     return code
 }
 
-func parse(code: String) -> Project {
+func parse(code: String) throws -> Project {
     // if code == "" {
     //     return printProject(project)
     // }
-    return Project(models: [])
+    return try parseProject(code)
 }

@@ -38,7 +38,7 @@ class RPCServer {
 
                         case "parse":
                             print("parse: \(json)")
-                            let project: Project = parse(code: code)
+                            let project: Project = try parse(code: code)
                             print("project: \(project)")
                             let projectData:Data = try JSONEncoder().encode(project)
                             let json = try JSON(data: projectData)

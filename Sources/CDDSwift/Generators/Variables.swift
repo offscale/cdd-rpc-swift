@@ -12,7 +12,7 @@ func variableDecl(variableName: String, variableType: String) -> MemberDeclListI
 
 	let decl = VariableDeclSyntax {
 		$0.useLetOrVarKeyword(SyntaxFactory.makeLetKeyword().withLeadingTrivia([.carriageReturns(1), .tabs(1)]))
-		$0.addPatternBinding(Pattern)
+		$0.addBinding(Pattern)
 	}
 
 	let listItem = SyntaxFactory.makeMemberDeclListItem(decl: decl, semicolon: nil)
@@ -29,7 +29,7 @@ func variableCodeBlock(variableName: String, variableType: String) -> CodeBlockI
 		initializer: nil, accessor: nil, trailingComma: nil)
 	let decl = VariableDeclSyntax {
 		$0.useLetOrVarKeyword(SyntaxFactory.makeLetKeyword())
-		$0.addPatternBinding(Pattern)
+		$0.addBinding(Pattern)
 	}
 	return CodeBlockItemSyntax {$0.useItem(decl)}
 }

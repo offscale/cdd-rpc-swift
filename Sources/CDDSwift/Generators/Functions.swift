@@ -10,7 +10,7 @@ func functionCodeBlock(functionName: String, functionParam: String) -> CodeBlock
 	let call = FunctionCallExprSyntax {
 		$0.useCalledExpression(printID)
 		$0.useLeftParen(SyntaxFactory.makeLeftParenToken())
-		$0.addFunctionCallArgument(arg)
+		$0.addArgument(arg)
 		$0.useRightParen(SyntaxFactory.makeRightParenToken())
 	}
 	return CodeBlockItemSyntax {

@@ -36,7 +36,7 @@ indirect enum VarType: Equatable, Codable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        var str = try container.decode(String.self)
+        let str = try container.decode(String.self)
         self = VarType.decode(str:str)
     }
     
