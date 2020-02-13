@@ -1,5 +1,5 @@
 struct Variable: Codable {
-	let name: String
+	var name: String
 	var optional: Bool
 	var type: VarType
 	var value: String?

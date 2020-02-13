@@ -9,8 +9,10 @@ func extractModels(syntax: Syntax) throws -> [Model] {
 
     for structure in visitor.structures {
         if structure.interfaces.contains("APIModel") {
-            models.push(Model(name: structure.name,
-                                        vars: structure.vars))
+            models.append(
+                Model(
+                    name: structure.name,
+                    vars: structure.vars))
         }
     }
     return models

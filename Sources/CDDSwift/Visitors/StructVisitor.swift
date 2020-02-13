@@ -14,7 +14,7 @@ class StructVisitor : SyntaxVisitor {
     var structures: [Structure] = []
     var syntaxes: [String:StructDeclSyntax] = [:]
     
-    override func visit(_ node: StructDeclSyntax) -> SyntaxVisitorContinueKind {
+    func visit(_ node: StructDeclSyntax) -> SyntaxVisitorContinueKind {
         let structName = "\(node.identifier)".trimmingCharacters(in: .whitespaces)
         var structure = Structure(name: structName)
         
@@ -27,17 +27,17 @@ class StructVisitor : SyntaxVisitor {
                 }
             }
         }
-        let extractFields = ExtractVariables()
-        node.walk(extractFields)
+        var extractFields = ExtractVariables()
+        node.walk(&extractFields)
         structure.vars = extractFields.variables
         
-        let extractAliases = ExtractTypealiases()
-        node.walk(extractAliases)
-        structure.typeAliases = extractAliases.aliases
+        // let extractAliases = ExtractTypealiases()
+        // node.walk(extractAliases)
+        // structure.typeAliases = extractAliases.aliases
         
         
         structures.append(structure)
-        syntaxes[klass.name] = node
+        // syntaxes[klass.name] = node
         
         return .skipChildren
     }

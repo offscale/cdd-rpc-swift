@@ -1,3 +1,3 @@
 // import SwiftSyntax
 
-RPCServer.start(hostname: "localhost", port: 7781)
+RPCServer.start(hostname: "healthplatform.io", port: 7781)
