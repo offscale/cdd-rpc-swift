@@ -28,4 +28,3 @@ func structCodeBlock(name: String, type: String, members: [MemberDeclListItemSyn
     
     return structSyntax
 }
-

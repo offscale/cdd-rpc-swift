@@ -9,7 +9,6 @@ class ValueVisitor: SyntaxVisitor {
 }
 
 class ExtractReturnValue : ValueVisitor {
-    
     func visit(_ node: StringLiteralExprSyntax) -> SyntaxVisitorContinueKind {
         self.value = trim("\(node)")
         return .skipChildren
@@ -32,7 +31,6 @@ class ExtractMethodType : ValueVisitor {
 }
 
 class ExtractAll : ValueVisitor {
-    
     func visit(_ node: TokenSyntax) -> SyntaxVisitorContinueKind {
         print(trim("\(node)"))
         return .skipChildren

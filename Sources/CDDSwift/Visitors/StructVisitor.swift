@@ -42,4 +42,3 @@ class StructVisitor : SyntaxVisitor {
         return .skipChildren
     }
 }
-

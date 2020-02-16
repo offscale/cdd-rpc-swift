@@ -2,7 +2,7 @@ import WebSocket
 
 class RPCServer {
     static func start(hostname: String, port: Int) {
-        print("Listening rpc socket server on \(hostname):\(port)...")
+        print("Swift JSON-RPC socket server listening on \(hostname):\(port)…")
 
         let group = MultiThreadedEventLoopGroup(numberOfThreads: System.coreCount)
 
@@ -53,7 +53,7 @@ class RPCServer {
                         // print("in: method: \(json["method"])")
                         // print("DONE \(json)")
                     } catch {
-                        print("error encountered.")
+                        fputs("error encountered during JSON dance.\n", stderr)
                     }
                 }
 
@@ -73,7 +73,7 @@ class RPCServer {
             // Run the server.
             try server.onClose.wait()
         } catch {
-            print("error")
+            fputs("error encountered during HTTP server starting|stopping.\n", stderr)
         }
     }
 }
