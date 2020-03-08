@@ -1,6 +1,8 @@
 cdd-rpc-swift
 =============
-Swift JSON-RPC socket server.
+[![License](https://img.shields.io/badge/license-Apache--2.0%20OR%20MIT-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+cdd-rpc-swift is a Swift server that exposes a JSON-RPC interface to Swift AST manipulation, following Compiler Driven Development (CDD) methodology.
 
 ## Linux/MacOS
 
@@ -17,6 +19,8 @@ https://github.com/apple/swift-nio - rpc sockets
 ```bash
 nix-shell
 ```
+
+---
 
 ## License
 
