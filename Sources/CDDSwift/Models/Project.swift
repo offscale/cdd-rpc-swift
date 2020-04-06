@@ -12,7 +12,6 @@ extension Decodable {
     }
 }
 
-
 extension Encodable {
     func json() throws -> String {
         let data = try JSONEncoder().encode(self)

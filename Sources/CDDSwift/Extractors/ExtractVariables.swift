@@ -4,7 +4,6 @@ class ExtractVariables : SyntaxVisitor {
 	var variables: [Variable] = []
 
 	func visit(_ node: PatternBindingSyntax) -> SyntaxVisitorContinueKind {
-    
         var variable: Variable?
         
 		for child in node.children {

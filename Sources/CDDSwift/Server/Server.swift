@@ -13,7 +13,7 @@ struct EchoResponder: HTTPServerResponder {
 
 class Server {
     static func start(hostname: String, port: Int) {
-        print("Starting server on \(hostname):\(port)...")
+        print("Swift JSON-RPC socket server listening on \(hostname):\(port)…")
 
         let group = MultiThreadedEventLoopGroup(numberOfThreads: System.coreCount)
 
@@ -26,7 +26,7 @@ class Server {
             ).wait()
             try server.onClose.wait()
         } catch {
-            print("error")
+            fputs("error encountered during HTTP server starting|stopping.\n", stderr)
         }
     }
 }

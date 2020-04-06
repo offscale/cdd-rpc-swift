@@ -1,4 +1,3 @@
-
 indirect enum VarType: Equatable, Codable {
     case primitive(PrimitiveType)
     case array(VarType)
@@ -66,4 +65,3 @@ enum PrimitiveType: String, Codable {
     case Float
     case Bool
 }
-
