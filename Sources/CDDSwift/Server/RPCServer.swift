@@ -26,6 +26,31 @@ class RPCServer {
 
                         switch json["method"] {
 
+                        case "serialise":
+                            print("-> serialise: \(json)")
+                            let code: String = json["params"]["code"].stringValue
+                            let tree: [Node] = try parseCode(code)
+                            // print("--> \(ast)")
+                            // let astJson = try JSONEncoder().encode(ast)
+                            // let astJson = try JSON(data: ast)
+
+                            let jsonData: Data = try! JSONEncoder().encode(tree)
+                            let json = try JSON(data: jsonData)
+                            // let json = try! encoder.encode(tree)
+                            // let json = String(data: try! encoder.encode(tree), encoding: .utf8)!
+                            // let json = try? JSONSerialization.jsonObject(with: try! encoder.encode(tree), options: [])
+
+                            // let json = try! encoder.encode(tree);
+
+                            print("---> \(json)")
+
+                            let response: JSON = rpc_response(result: ["ast": json], id: id)
+                            print("<- serialise: \(response)")
+                            ws.send(response.description)
+
+                        case "deserialise":
+                            print("-> deserialise: \(json)")
+
                         case "update":
                             print("update: \(json)")
                             let projectJson = json["params"]["project"]
@@ -56,8 +81,6 @@ class RPCServer {
                         print("error encountered.")
                     }
                 }
-
-                
             }
         })
 

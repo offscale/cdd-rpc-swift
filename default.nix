@@ -12,22 +12,23 @@ pkgs.mkShell {
   name = "swift-env";
 
   buildInputs = with pkgs; [
-    openssl
-    stdenv
-    binutils
-    cmake
-    pkgconfig
-    curl
-    glibc
-    icu
-    libblocksruntime
-    libbsd
-    libedit
-    libuuid
-    libxml2
-    sqlite
-    swig
     swift
+    pkgconfig
+    openssl
+    zlib
+    # stdenv
+    # binutils
+    # cmake
+    # curl
+    # glibc
+    # icu
+    # libblocksruntime
+    # libbsd
+    # libedit
+    # libuuid
+    # libxml2
+    # sqlite
+    # swig
   ];
 
   shellHook = ''

@@ -6,3 +6,10 @@ func parseProject(_ code: String) throws -> Project {
 
     return Project(models: try extractModels(syntax: syntax))
 }
+
+func parseCode(_ code: String) throws -> [Node] {
+    let syntax = try SyntaxParser.parse(source: code)
+    let nodes = try extractAll(syntax: syntax)
+
+    return nodes
+}
