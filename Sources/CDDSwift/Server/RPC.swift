@@ -11,49 +11,51 @@ class RPCServer {
         let ws = HTTPServer.webSocketUpgrader(shouldUpgrade: { req in
             // Returning nil in this closure will reject upgrade
             if req.url.path == "/deny" { return nil }
-            // Return any additional headers you like, or just empty
+            // Return any additional headers
             return [:]
         }, onUpgrade: { ws, req in
-            // This closure will be called with each new WebSocket client
-
-            // ws.send("Connected")
             ws.onText { ws, string in
-                // print("body: \(string)")
 
                 if let dataFromString = string.data(using: .utf8, allowLossyConversion: false) {
                     do {
                         let json = try JSON(data: dataFromString)
-                        let code = json["code"].stringValue
                         let id = json["id"].stringValue
 
-                        switch json["method"] {
+						do {
+							switch json["method"] {
+							case "serialise":
+								print("-> serialise: \(json)")
 
-                        case "serialise":
-                            print("-> serialise: \(json)")
+								let code: String = json["params"]["code"].stringValue
+								let json: JSON = try serialise(code: code)
+								let response: JSON = rpc_response(result: ["ast": json], id: id)
 
-                            let code: String = json["params"]["code"].stringValue
-                            let json: JSON = try serialise(code)
-                            let response: JSON = rpc_response(result: ["ast": json], id: id)
+								print("<- serialise: \(response)")
+								ws.send(response.description)
 
-                            print("<- serialise: \(response)")
-                            ws.send(response.description)
+							case "deserialise":
+								print("-> deserialise: \(json)")
 
-                        case "deserialise":
-                            print("-> deserialise: \(json)")
+								let ast = json["params"]["ast"]
+								let code:String = try deserialise(ast: ast.rawData())
+								let response: JSON = rpc_response(result: ["code": code], id: id)
 
-							let ast = json["params"]["ast"]
-							let code:String = try! deserialise(ast: ast.rawData())
-							let response: JSON = rpc_response(result: ["code": code], id: id)
-							
+								ws.send(response.description)
+
+							default: ()
+							}
+						} catch let e {
+							let response: JSON = rpc_error(message: "rpc method error: \(e)", id: id)
 							ws.send(response.description)
-                                
-                        default: ()
-                        }
+						}
+
 
                         // print("in: method: \(json["method"])")
                         // print("DONE \(json)")
-                    } catch {
-                        fputs("error encountered during JSON dance.\n", stderr)
+                    } catch let e {
+                        fputs("error encountered during JSON dance.: \(e)\n", stderr)
+						let response: JSON = rpc_error(message: "error parsing basic json 2.0 request: \(e)", id: "0")
+						ws.send(response.description)
                     }
                 }
             }
@@ -82,4 +84,15 @@ func rpc_response(result: JSON, id: String) -> JSON {
         "result": result,
         "id": id
     ]
+}
+
+func rpc_error(message: String, id: String) -> JSON {
+	[
+		"jsonrpc": "2.0",
+		"id": id,
+		"error": [
+			"code": -32700, // parse error
+			"message": message
+		]
+	]
 }

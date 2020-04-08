@@ -4,13 +4,8 @@ import SwiftSyntax
 
 
 // code -> ast
-func serialise(_ code: String) throws -> JSON {
-//    let tree: [Node] = try parseCode(code)
-	let file = FileNode(
-		statements: [
-			Statement.Struct(StructNode(ident: "Pet"))
-		]
-	)
+func serialise(code: String) throws -> JSON {
+	let file: FileNode = try parseFile(code: code)
 	let jsonData: Data = try! JSONEncoder().encode(file)
     let json = try JSON(data: jsonData)
     return json
@@ -19,6 +14,6 @@ func serialise(_ code: String) throws -> JSON {
 // ast -> code
 func deserialise(ast: Data) throws -> String {
 	let decoder = JSONDecoder()
-	let file = try! decoder.decode(FileNode.self, from: ast)
+	let file = try decoder.decode(FileNode.self, from: ast)
 	return print(fileNode: file)
 }
