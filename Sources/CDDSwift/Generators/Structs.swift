@@ -55,7 +55,9 @@ func memberDeclListItem(member: StructMember) -> MemberDeclListItemSyntax {
 
 	return MemberDeclListItemSyntax { builder in
 		builder.useDecl(VariableDeclSyntax { vBuilder in
-			vBuilder.useLetOrVarKeyword(SyntaxFactory.makeVarKeyword())
+			vBuilder.useLetOrVarKeyword(SyntaxFactory.makeVarKeyword(
+				leadingTrivia: Trivia(pieces: [.newlines(1), .tabs(1)]),
+				trailingTrivia: .spaces(1)))
 			vBuilder.addBinding(PatternBindingSyntax { pbBuilder in
 				pbBuilder.usePattern(SyntaxFactory.makeIdentifierPattern(
 					identifier: SyntaxFactory.makeIdentifier(ident)))
