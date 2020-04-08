@@ -1,8 +1,6 @@
 import Foundation
 import SwiftSyntax
 
-
-
 // code -> ast
 func serialise(code: String) throws -> JSON {
 	let file: FileNode = try parseFile(code: code)

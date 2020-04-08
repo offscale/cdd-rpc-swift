@@ -11,9 +11,9 @@ func print(fileNode: FileNode) -> String {
 	return fileNode.statements.map({ statement in
 		switch statement {
 		case .Struct(let structNode):
-			return structCodeBlock(name: structNode.ident, type: "", members: []).description;
+			return structDeclCodeBlock(name: structNode.ident, type: "", members: []).description;
 		case .Function(let functionNode):
-			return functionCodeBlock(functionName: functionNode.ident, functionParam: "").description;
+			return functionDeclCodeBlock(functionName: functionNode.ident).description;
 		}
 		}).joined(separator: "\n\n")
 }

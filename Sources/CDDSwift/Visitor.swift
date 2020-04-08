@@ -20,4 +20,15 @@ class StatementVisitor : SyntaxVisitor {
 		
 		return .skipChildren
 	}
+
+	func visit(_ node: FunctionDeclSyntax) -> SyntaxVisitorContinueKind {
+		let ident = "\(node.identifier)".trimmingCharacters(in: .whitespaces)
+
+		statements.append(Statement.Function(FunctionNode(
+			ident: ident,
+			statements: []
+		)))
+
+		return .skipChildren
+	}
 }

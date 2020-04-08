@@ -1,7 +1,7 @@
 import Foundation
 import SwiftSyntax
 
-func structCodeBlock(name: String, type: String, members: [MemberDeclListItemSyntax]) -> StructDeclSyntax {
+func structDeclCodeBlock(name: String, type: String, members: [MemberDeclListItemSyntax]) -> StructDeclSyntax {
     let typeSyntax = TypeInheritanceClauseSyntax {
         $0.useColon(
 			SyntaxFactory.makeColonToken().withTrailingTrivia(.spaces(1)).withLeadingTrivia(.spaces(1))
