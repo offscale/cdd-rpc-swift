@@ -72,21 +72,6 @@ func functionParameter(name: String, type: String, useTrailingComma: Bool) -> Fu
 	}
 }
 
-//func variableParam(optional: bool, hasDefault: bool) -> TypeAnnotationSyntax {
-//	let colon = SyntaxFactory.makeColonToken(leadingTrivia: .zero,
-//											 trailingTrivia: .spaces(1))
-//	var typeAnnotation: TypeSyntax?
-//	if optional {
-//		let questionMark = SyntaxFactory.makePostfixQuestionMarkToken(leadingTrivia: .zero, trailingTrivia: hasDefault ? .spaces(1) : .zero)
-//		typeAnnotation = SyntaxFactory.makeOptionalType(wrappedType: type.libRepresentation(),
-//														questionMark: questionMark)
-//	} else {
-//		typeAnnotation = type.libRepresentation(hasDefault: hasDefault)
-//	}
-//	return SyntaxFactory.makeTypeAnnotation(colon: colon,
-//											type: typeAnnotation!)
-//}
-
 func variableType(_ name: String, isOptional: Bool, hasDefault: Bool = false) -> OptionalTypeSyntax {
 	return OptionalTypeSyntax { builder in
 		builder.useWrappedType(SimpleTypeIdentifierSyntax { sBuilder in
