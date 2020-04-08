@@ -1,5 +1,6 @@
 import WebSocket
 import SwiftSyntax
+import Foundation
 
 class RPCServer {
     static func start(hostname: String, port: Int) {
@@ -29,45 +30,22 @@ class RPCServer {
 
                         case "serialise":
                             print("-> serialise: \(json)")
+
                             let code: String = json["params"]["code"].stringValue
                             let json: JSON = try serialise(code)
-
-                            // let tree: [Node] = try parseCode(code)
-                            // // convert to json data
-                            // let jsonData: Data = try! JSONEncoder().encode(tree)
-                            // let json = try JSON(data: jsonData)
                             let response: JSON = rpc_response(result: ["ast": json], id: id)
+
                             print("<- serialise: \(response)")
                             ws.send(response.description)
 
                         case "deserialise":
                             print("-> deserialise: \(json)")
-                            // let ast:JSON = json["params"]["ast"]
-                            // let source:[Node] = try! JSONDecoder().decode(Node.self, from: ast.data)
-                            
-                            // let response: JSON = rpc_response(result: ["ast": ast], id: id)
-                            // ws.send(response.description)
 
-                        case "update":
-                            print("update: \(json)")
-                            let projectJson = json["params"]["project"]
-                            let project = try JSONDecoder().decode(Project.self, from: "\(projectJson)");
-
-                            let code: String = update(project: project, code: code)
-                            let response: JSON = rpc_response(result: ["code": code], id: id)
-                            print("response: \(response)")
-                            ws.send(response.description)
-
-                        case "parse":
-                            print("parse: \(json)")
-                            let project: Project = try parse(code: code)
-                            print("project: \(project)")
-                            let projectData:Data = try JSONEncoder().encode(project)
-                            let json = try JSON(data: projectData)
-
-                            let response: JSON = rpc_response(result: ["project": json], id: id)
-                            print("response: \(response)")
-                            ws.send(response.description)
+							let ast = json["params"]["ast"]
+							let code:String = try! deserialise(ast: ast.rawData())
+							let response: JSON = rpc_response(result: ["code": code], id: id)
+							
+							ws.send(response.description)
                                 
                         default: ()
                         }
@@ -105,13 +83,3 @@ func rpc_response(result: JSON, id: String) -> JSON {
         "id": id
     ]
 }
-
-// func decodeProject(json: JSON) throws -> Project? {
-//     return try JSONDecoder().decode(Project, from: json)
-// }
-
-// struct RPCResponse<T>: Codable {
-//     var jsonrpc: String
-//     var result: T:Codable
-//     var id: String
-// }

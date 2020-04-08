@@ -16,7 +16,7 @@ func structCodeBlock(name: String, type: String, members: [MemberDeclListItemSyn
 		members: SyntaxFactory.makeMemberDeclList(members),
 		rightBrace: SyntaxFactory.makeRightBraceToken(leadingTrivia: .newlines(1))
 	)
-     
+
     let structSyntax = SyntaxFactory.makeStructDecl(attributes: nil,
 		modifiers: nil,
 		structKeyword: SyntaxFactory.makeStructKeyword(),
@@ -25,6 +25,6 @@ func structCodeBlock(name: String, type: String, members: [MemberDeclListItemSyn
 		inheritanceClause: typeSyntax,
 		genericWhereClause: nil,
 		members: contentBlock)
-    
+
     return structSyntax
 }
