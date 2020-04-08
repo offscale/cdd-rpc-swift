@@ -26,6 +26,7 @@ class StatementVisitor : SyntaxVisitor {
 
 		statements.append(Statement.Function(FunctionNode(
 			ident: ident,
+			params: [],
 			statements: []
 		)))
 

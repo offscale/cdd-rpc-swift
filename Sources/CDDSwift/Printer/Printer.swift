@@ -13,7 +13,7 @@ func print(fileNode: FileNode) -> String {
 		case .Struct(let structNode):
 			return structDeclCodeBlock(name: structNode.ident, type: "", members: []).description;
 		case .Function(let functionNode):
-			return functionDeclCodeBlock(functionName: functionNode.ident).description;
+			return functionDeclCodeBlock(function: functionNode).description;
 		}
 		}).joined(separator: "\n\n")
 }
