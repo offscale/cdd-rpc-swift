@@ -15,7 +15,7 @@ class StatementVisitor : SyntaxVisitor {
 
 		statements.append(Statement.Struct(StructNode(
 			ident: ident,
-			statements: []
+			members: []
 		)))
 		
 		return .skipChildren

@@ -9,5 +9,11 @@ import Foundation
 
 struct StructNode: Codable {
 	var ident: String
-	var statements: [Statement]
+	var members: [StructMember]
+}
+
+struct StructMember: Codable {
+	var ident: String
+	var type: String
+	var isOptional: Bool?
 }

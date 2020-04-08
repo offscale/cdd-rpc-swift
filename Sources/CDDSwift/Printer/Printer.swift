@@ -11,7 +11,7 @@ func print(fileNode: FileNode) -> String {
 	return fileNode.statements.map({ statement in
 		switch statement {
 		case .Struct(let structNode):
-			return structDeclCodeBlock(name: structNode.ident, type: "", members: []).description;
+			return structDeclCodeBlock(structNode: structNode).description;
 		case .Function(let functionNode):
 			return functionDeclCodeBlock(function: functionNode).description;
 		}
