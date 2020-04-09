@@ -27,11 +27,11 @@ func functionDeclCodeBlock(function: FunctionNode) -> CodeBlockItemSyntax {
 			fBuilder.useIdentifier(SyntaxFactory.makeIdentifier(function.ident))
 
 			// func keyword
-			fBuilder.useFuncKeyword(SyntaxFactory.makeFuncKeyword(leadingTrivia: Trivia(pieces: [.newlines(1), .tabs(1)]), trailingTrivia: .spaces(1)))
+			fBuilder.useFuncKeyword(SyntaxFactory.makeFuncKeyword(trailingTrivia: .spaces(1)))
 
 			// body
 			fBuilder.useBody(SyntaxFactory.makeCodeBlock(
-				leftBrace: SyntaxFactory.makeLeftBraceToken(leadingTrivia: .spaces(1)),
+				leftBrace: SyntaxFactory.makeLeftBraceToken(),
 				statements: SyntaxFactory.makeCodeBlockItemList([]),
 				rightBrace: SyntaxFactory.makeRightBraceToken(leadingTrivia: .newlines(1))
 			))
