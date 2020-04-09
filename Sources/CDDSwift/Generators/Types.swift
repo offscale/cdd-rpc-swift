@@ -20,7 +20,6 @@ func variableType(_ name: String, isOptional: Bool, hasDefault: Bool = false) ->
 }
 
 func typeAnnotation(ident: String, isOptional: Bool, hasDefault: Bool) -> TypeAnnotationSyntax {
-
 	let colon = SyntaxFactory.makeColonToken(leadingTrivia: .zero,
 											 trailingTrivia: .spaces(1))
 	var typeAnnotation: TypeSyntax?

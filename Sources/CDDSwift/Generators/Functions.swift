@@ -19,6 +19,22 @@ func functionCallCodeBlock(functionName: String, functionParam: String) -> CodeB
 }
 
 func functionDeclCodeBlock(function: FunctionNode) -> CodeBlockItemSyntax {
+	var body: [CodeBlockItemSyntax] = [];
+
+	for member in function.statements {
+		body.append(CodeBlockItemSyntax { builder in
+			builder.useItem(
+				memberDeclListItem(
+					member: Member(
+						ident: member.ident,
+						type: member.type,
+						isOptional: member.isOptional
+					)
+				)
+		)})
+	}
+
+	print(body)
 
 	return CodeBlockItemSyntax { builder in
 		builder.useItem(FunctionDeclSyntax { fBuilder in
@@ -32,7 +48,7 @@ func functionDeclCodeBlock(function: FunctionNode) -> CodeBlockItemSyntax {
 			// body
 			fBuilder.useBody(SyntaxFactory.makeCodeBlock(
 				leftBrace: SyntaxFactory.makeLeftBraceToken(),
-				statements: SyntaxFactory.makeCodeBlockItemList([]),
+				statements: SyntaxFactory.makeCodeBlockItemList(body),
 				rightBrace: SyntaxFactory.makeRightBraceToken(leadingTrivia: .newlines(1))
 			))
 

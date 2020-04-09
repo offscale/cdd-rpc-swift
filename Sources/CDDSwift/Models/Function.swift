@@ -10,7 +10,7 @@ import Foundation
 struct FunctionNode: Codable {
 	var ident: String
 	var params: [FunctionParam]
-	var statements: [Statement]
+	var statements: [Member]
 }
 
 struct FunctionParam: Codable {

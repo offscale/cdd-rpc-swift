@@ -38,7 +38,7 @@ class StatementVisitor : SyntaxVisitor {
 }
 
 class ExtractVariables : SyntaxVisitor {
-	var members: [StructMember] = []
+	var members: [Member] = []
 
 	func visit(_ node: PatternBindingSyntax) -> SyntaxVisitorContinueKind {
 		var visitor = ExtractVariable()
@@ -47,7 +47,7 @@ class ExtractVariables : SyntaxVisitor {
 		print("IDENT: ", visitor.ident, visitor.type, visitor.isOptional)
 		if let ident = visitor.ident {
 			if let type = visitor.type {
-				members.append(StructMember(
+				members.append(Member(
 					ident: ident,
 					type: type
 				))
