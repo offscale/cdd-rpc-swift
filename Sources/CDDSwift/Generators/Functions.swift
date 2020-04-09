@@ -34,13 +34,16 @@ func functionDeclCodeBlock(function: FunctionNode) -> CodeBlockItemSyntax {
 		)})
 	}
 
-	// body.append(FunctionCallExprSyntax { fcBuilder in
-	// 	fcBuilder.useItem(
-	// 		MemberAccessExpressionSyntax { meBuilder in
-
-	// 		}
-	// 	)
-	// })
+	 body.append(CodeBlockItemSyntax { builder in
+		FunctionCallExprSyntax { fceBuilder in
+			fceBuilder.useCalledExpression(
+				SyntaxFactory.makeIdentifierExpr(
+					identifier: SyntaxFactory.makeUnknown("stringRepresentation"),
+					declNameArguments: nil))
+//			fceBuilder.addFunctionCallArgument(SyntaxFactory.makeBlankFunctionCallArgument())
+			fceBuilder.useLeftParen(SyntaxFactory.makeLeftParenToken())
+			fceBuilder.useRightParen(SyntaxFactory.makeRightParenToken())
+		}})
 
 	print(body)
 
