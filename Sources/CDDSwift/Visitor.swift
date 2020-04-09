@@ -15,8 +15,8 @@ class StatementVisitor : SyntaxVisitor {
 
 //		print(node)
 
-        var extractFields = ExtractVariables()
-        node.walk(&extractFields)
+        var visitor = ExtractVariables()
+        node.walk(&visitor)
 
 		// members
 //		var pbVisitor = PatternBindingVisitor()
@@ -37,7 +37,7 @@ class StatementVisitor : SyntaxVisitor {
 
 		statements.append(Statement.Struct(StructNode(
 			ident: ident,
-			members: []
+			members: visitor.members
 		)))
 
 		return .skipChildren
@@ -57,9 +57,38 @@ class StatementVisitor : SyntaxVisitor {
 }
 
 class ExtractVariables : SyntaxVisitor {
-//	var members: [StructMember] = []
+	var members: [StructMember] = []
 
 	func visit(_ node: PatternBindingSyntax) -> SyntaxVisitorContinueKind {
+		var visitor = ExtractVariable()
+        node.walk(&visitor)
+
+		print("IDENT: ", visitor.ident, visitor.type, visitor.isOptional)
+		if let ident = visitor.ident {
+			if let type = visitor.type {
+				members.append(StructMember(
+					ident: ident,
+					type: type
+				))
+			}
+		}
+
+		return .skipChildren
+	}
+}
+
+class ExtractVariable : SyntaxVisitor {
+	var type: String?
+	var ident: String?
+	var isOptional: Bool = false
+
+	func visit(_ node: IdentifierPatternSyntax) -> SyntaxVisitorContinueKind {
+		ident = "\(node.identifier)".trimmingCharacters(in: .whitespaces)
+		return .skipChildren
+	}
+
+	func visit(_ node: TypeAnnotationSyntax) -> SyntaxVisitorContinueKind {
+		type = "\(node)".replacingOccurrences(of: ":", with: "").trimmedWhiteSpaces
 		return .skipChildren
 	}
 }
