@@ -38,7 +38,7 @@ class RPCServer {
 
 								let ast = json["params"]["ast"]
 								let code:String = try deserialise(ast: ast.rawData())
-								let response: JSON = rpc_response(result: ["code": code], id: id)
+								let response: JSON = rpc_response(result: ["output": code], id: id)
 
 								ws.send(response.description)
 
