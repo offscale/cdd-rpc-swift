@@ -34,6 +34,14 @@ func functionDeclCodeBlock(function: FunctionNode) -> CodeBlockItemSyntax {
 		)})
 	}
 
+	// body.append(FunctionCallExprSyntax { fcBuilder in
+	// 	fcBuilder.useItem(
+	// 		MemberAccessExpressionSyntax { meBuilder in
+
+	// 		}
+	// 	)
+	// })
+
 	print(body)
 
 	return CodeBlockItemSyntax { builder in
