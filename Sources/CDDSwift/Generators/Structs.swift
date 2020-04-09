@@ -41,7 +41,6 @@ func structDeclCodeBlock(structNode: StructNode) -> StructDeclSyntax {
 				mBuilder.useLeftBrace(SyntaxFactory.makeLeftBraceToken(leadingTrivia: .spaces(1)))
 				mBuilder.useRightBrace(SyntaxFactory.makeRightBraceToken(leadingTrivia: .newlines(1)))
 				for member in members {
-					
 					mBuilder.addMember(memberDeclListItem(member: member))
 				}
 			}
