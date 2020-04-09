@@ -13,27 +13,8 @@ class StatementVisitor : SyntaxVisitor {
 	func visit(_ node: StructDeclSyntax) -> SyntaxVisitorContinueKind {
 		let ident = "\(node.identifier)".trimmingCharacters(in: .whitespaces)
 
-//		print(node)
-
         var visitor = ExtractVariables()
         node.walk(&visitor)
-
-		// members
-//		var pbVisitor = PatternBindingVisitor()
-//		node.walk(&pbVisitor)
-
-//        for member in node.children {
-//			// inheritance clauses
-////            if type(of: member) == TypeInheritanceClauseSyntax.self {
-////                for child in member.children {
-////                    if type(of: child) == InheritedTypeListSyntax.self {
-////                        structure.interfaces.append(trim("\(child)"))
-////                    }
-////                }
-////            }
-//
-//
-//        }
 
 		statements.append(Statement.Struct(StructNode(
 			ident: ident,
